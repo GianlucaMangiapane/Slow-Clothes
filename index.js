@@ -201,16 +201,12 @@ const donationItemOptions = [
   },
 ];
 
-const donationBox = document.querySelector('#donation-box',);
+const donationBox = document.querySelector('#donation-box');
 
 function addDonationRow() {
   let donationOptions = '';
   for (const itemOption of donationItemOptions) {
     donationOptions += `<option>${itemOption.name}</option>`;
-  }
-  let donationValue = '';
-  for (const itemValue of donationItemOptions) {
-    donationValue += `<option>${itemValue.value}</option>`;
   }
   const html = `
     <div class="donation-row">
@@ -243,7 +239,7 @@ function addDonationRow() {
   donationBox.appendChild(donationRow);
 }
 
-const anotherItem = document.querySelector('#addItem button',);
+const anotherItem = document.querySelector('#addItem button');
 
 anotherItem.addEventListener('click', addDonationRow);
 
