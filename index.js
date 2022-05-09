@@ -4,7 +4,7 @@ const map = L.map('map').setView([40.7128, -74.0060], 12);
 L.tileLayer('https://tile.thunderforest.com/spinal-map/{z}/{x}/{y}.png?apikey=41b07724991442f8b7f0cf7354c4605c', {
   attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   apikey: '<41b07724991442f8b7f0cf7354c4605c>',
-	maxZoom: 25,
+  maxZoom: 25,
 }).addTo(map);
 
 
@@ -91,17 +91,17 @@ const handlePositionUpdated = function (position) {
 
 
 
-//donation item with the value
+// donation item with the value
 
 
 function addDonationRow() {
-  let donationOptions = ''
+  let donationOptions = '';
   for (const itemOption of donationItemOptions) {
-    donationOptions += `<option>${itemOption.name}</option>`
+    donationOptions += `<option>${itemOption.name}</option>`;
   }
-  let donationValue = ''
+  let donationValue = '';
   for (const itemValue of donationItemOptions) {
-    donationValue += `<option>${itemValue.value}</option>`
+    donationValue += `<option>${itemValue.value}</option>`;
   }
   const html = `
     <div class="donation-row">
@@ -119,10 +119,10 @@ function addDonationRow() {
 
   function handleItemTypeCountChange() {
     const typeName = itemType.value;
-    const count = parseInt(itemCount.value);
+    const count = parseInt(itemCount.value), 10);
 
     for (const option of donationItemOptions) {
-      if (typeName == option.name) {
+      if (typeName === option.name) {
         itemValue.innerHTML = option.value * count;
       }
     }
@@ -135,15 +135,13 @@ function addDonationRow() {
 }
 
 const anotherItem = document.querySelector(
-  '#addItem button'
+  '#addItem button',
 );
 
-anotherItem.addEventListener(
-  'click', addDonationRow
+anotherItem.addEventListener('click', addDonationRow
 );
 
-const donationBox = document.querySelector(
-  '#donation-box'
+const donationBox = document.querySelector('#donation-box',
 );
 
 const donationItemOptions = [
