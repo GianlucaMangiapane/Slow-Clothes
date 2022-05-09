@@ -89,16 +89,6 @@ const stopTracking = function () {
 };
 
 
-const trackingButton = document.querySelector('#tracking-button');
-trackingButton.addEventListener('click', () => {
-  if (trackingID === null) {
-    startTracking();
-  } else {
-    stopTracking();
-  }
-});
-
-
 // donation item with the value
 const donationItemOptions = [
   {
