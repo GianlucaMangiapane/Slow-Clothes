@@ -119,7 +119,7 @@ function addDonationRow() {
 
   function handleItemTypeCountChange() {
     const typeName = itemType.value;
-    const count = parseInt(itemCount.value), 10);
+    const count = parseInt(itemCount.value);
 
     for (const option of donationItemOptions) {
       if (typeName === option.name) {
