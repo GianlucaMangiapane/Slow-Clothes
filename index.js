@@ -45,6 +45,27 @@ const positionMarker = L.circleMarker(
 ).addTo(map);
 let trackingID = null;
 
+const handlePositionUpdated = function (position) {
+  // Move the position marker to the
+  const latlng = [position.coords.latitude, position.coords.longitude];
+  positionMarker.setLatLng(latlng);
+  map.panTo(latlng, 11);
+
+  // Now that we know the user's position, update the marker style.
+  positionMarker.setStyle(trackingStyle);
+
+  console.log(position);
+};
+
+const trackingButton = document.querySelector('#tracking-button');
+trackingButton.addEventListener('click', () => {
+  if (trackingID === null) {
+    startTracking();
+  } else {
+    stopTracking();
+  }
+});
+
 const startTracking = function () {
   // Start tracking the position.
   console.log('Starting to track position...');
@@ -77,73 +98,8 @@ trackingButton.addEventListener('click', () => {
   }
 });
 
-const handlePositionUpdated = function (position) {
-  // Move the position marker to the
-  const latlng = [position.coords.latitude, position.coords.longitude];
-  positionMarker.setLatLng(latlng);
-  map.panTo(latlng, 11);
-
-  // Now that we know the user's position, update the marker style.
-  positionMarker.setStyle(trackingStyle);
-
-  console.log(position);
-};
-
-
 
 // donation item with the value
-
-
-function addDonationRow() {
-  let donationOptions = '';
-  for (const itemOption of donationItemOptions) {
-    donationOptions += `<option>${itemOption.name}</option>`;
-  }
-  let donationValue = '';
-  for (const itemValue of donationItemOptions) {
-    donationValue += `<option>${itemValue.value}</option>`;
-  }
-  const html = `
-    <div class="donation-row">
-      <select class="item-type">
-        ${donationOptions}
-      </select>
-      <input class="item-count">
-      <span class="item-value"></span>
-    </div>
-  `;
-  const donationRow = htmlToElement(html);
-  const itemType = donationRow.querySelector('.item-type');
-  const itemCount = donationRow.querySelector('.item-count');
-  const itemValue = donationRow.querySelector('.item-value');
-
-  function handleItemTypeCountChange() {
-    const typeName = itemType.value;
-    const count = parseInt(itemCount.value);
-
-    for (const option of donationItemOptions) {
-      if (typeName === option.name) {
-        itemValue.innerHTML = option.value * count;
-      }
-    }
-  }
-
-  itemType.addEventListener('change', handleItemTypeCountChange);
-  itemCount.addEventListener('input', handleItemTypeCountChange);
-
-  donationBox.appendChild(donationRow);
-}
-
-const anotherItem = document.querySelector(
-  '#addItem button',
-);
-
-anotherItem.addEventListener('click', addDonationRow
-);
-
-const donationBox = document.querySelector('#donation-box',
-);
-
 const donationItemOptions = [
   {
     name: 'CHOOSE DONATION ITEM',
@@ -254,5 +210,53 @@ const donationItemOptions = [
     value: 0.75,
   },
 ];
+
+const donationBox = document.querySelector('#donation-box',);
+
+function addDonationRow() {
+  let donationOptions = '';
+  for (const itemOption of donationItemOptions) {
+    donationOptions += `<option>${itemOption.name}</option>`;
+  }
+  let donationValue = '';
+  for (const itemValue of donationItemOptions) {
+    donationValue += `<option>${itemValue.value}</option>`;
+  }
+  const html = `
+    <div class="donation-row">
+      <select class="item-type">
+        ${donationOptions}
+      </select>
+      <input class="item-count">
+      <span class="item-value"></span>
+    </div>
+  `;
+  const donationRow = htmlToElement(html);
+  const itemType = donationRow.querySelector('.item-type');
+  const itemCount = donationRow.querySelector('.item-count');
+  const itemValue = donationRow.querySelector('.item-value');
+
+  function handleItemTypeCountChange() {
+    const typeName = itemType.value;
+    const count = parseInt(itemCount.value,10);
+
+    for (const option of donationItemOptions) {
+      if (typeName === option.name) {
+        itemValue.innerHTML = option.value * count;
+      }
+    }
+  }
+
+  itemType.addEventListener('change', handleItemTypeCountChange);
+  itemCount.addEventListener('input', handleItemTypeCountChange);
+
+  donationBox.appendChild(donationRow);
+}
+
+const anotherItem = document.querySelector('#addItem button',);
+
+anotherItem.addEventListener('click', addDonationRow);
+
+
 
 addDonationRow();
