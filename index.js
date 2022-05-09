@@ -2,13 +2,13 @@
 const map = L.map('map').setView([40.7128, -74.0060], 12);
 
 L.tileLayer('https://tile.thunderforest.com/spinal-map/{z}/{x}/{y}.png?apikey=41b07724991442f8b7f0cf7354c4605c', {
-	attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-	apikey: '<41b07724991442f8b7f0cf7354c4605c>',
-	maxZoom: 25
+  attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  apikey: '<41b07724991442f8b7f0cf7354c4605c>',
+	maxZoom: 25,
 }).addTo(map);
 
 
-//load textile API
+// load textile API
 let textileLayer = null;
 const loadTextiles = function () {
   fetch('https://data.cityofnewyork.us/resource/qnjm-wvu5.geojson')
@@ -20,7 +20,7 @@ const loadTextiles = function () {
           opacity: 0,
         },
       });
-      textileLayer.bindTooltip(l => l.feature.properties['ntaname'], {sticky: true})
+      textileLayer.bindTooltip(l => l.feature.properties['.ntaname'], { sticky: true });
       textileLayer.addTo(map);
     });
 };
@@ -35,7 +35,7 @@ loadTextiles();
 */
 
 
-//Geolocator
+// Geolocator
 const trackingStyle = { color: 'green' };
 const nonTrackingStyle = { color: 'red' };
 
@@ -45,16 +45,6 @@ const positionMarker = L.circleMarker(
 ).addTo(map);
 let trackingID = null;
 
-const trackingButton = document.querySelector('#tracking-button');
-trackingButton.addEventListener('click', () => {
-  if (trackingID === null) {
-    startTracking();
-  } else {
-    stopTracking();
-  }
-});
-
-
 const startTracking = function () {
   // Start tracking the position.
   console.log('Starting to track position...');
@@ -63,7 +53,6 @@ const startTracking = function () {
   // Update the button text.
   trackingButton.innerHTML = 'Stop Tracking Me.';
 };
-
 
 const stopTracking = function () {
   // Stop tracking the position.
@@ -78,6 +67,15 @@ const stopTracking = function () {
   trackingButton.innerHTML = 'Track Me!';
 };
 
+
+const trackingButton = document.querySelector('#tracking-button');
+trackingButton.addEventListener('click', () => {
+  if (trackingID === null) {
+    startTracking();
+  } else {
+    stopTracking();
+  }
+});
 
 const handlePositionUpdated = function (position) {
   // Move the position marker to the
